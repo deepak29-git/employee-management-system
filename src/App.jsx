@@ -1,7 +1,12 @@
 import "./App.css";
+import EmplyeeList from "./component/EmplyeeList";
 
 function App() {
-  return <>Hi</>;
+  return (
+    <>
+      <EmplyeeList />
+    </>
+  );
 }
 
 export default App;
