@@ -16,8 +16,8 @@ function EmployeeList({ search, filter }) {
   const debouncedSearch = useDebounce(commonEncodeURIComponent(search), 500);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
-  const [selectedUser,setSelectedUser]=useState([])
-const { data, loading, error } = useSelector((state) => state.users);
+  const [selectedUser, setSelectedUser] = useState([]);
+  const { data, loading, error } = useSelector((state) => state.users);
   const recordsPerPage = 15;
 
   const filterParam = filter
@@ -35,14 +35,14 @@ const { data, loading, error } = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(fetchUsers(finalUrl));
-  }, [dispatch, debouncedSearch, filter]);
+  }, [debouncedSearch, filter, page]);
 
   const totalPages = Math.ceil(data.total / recordsPerPage);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const detailsHandler = (user) => {
     setOpen(true);
-    setSelectedUser(user)
+    setSelectedUser(user);
   };
   const head = {
     cells: [
@@ -137,7 +137,11 @@ const { data, loading, error } = useSelector((state) => state.users);
           previousLabel="Previous"
           onChange={() => setPage((page) => page + 1)}
         />
-         <ModalComponent selectedUser={selectedUser} open={open} setOpen={setOpen} />
+        <ModalComponent
+          selectedUser={selectedUser}
+          open={open}
+          setOpen={setOpen}
+        />
       </div>
     </div>
   );
