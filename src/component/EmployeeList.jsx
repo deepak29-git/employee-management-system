@@ -8,7 +8,6 @@ import { fetchUsers, setUser } from "../redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { commonEncodeURIComponent } from "../utilities/utils";
 import { filterData } from "../utilities/constant";
-import BasicModal from "./ModalComponent";
 import ModalComponent from "./ModalComponent";
 
 function EmployeeList({ search, filter }) {
@@ -52,6 +51,11 @@ function EmployeeList({ search, filter }) {
         isSortable: true,
       },
       {
+        key: "age",
+        content: "age",
+        isSortable: true,
+      },
+      {
         key: "companyName",
         content: "Company Name",
         isSortable: true,
@@ -79,13 +83,18 @@ function EmployeeList({ search, filter }) {
   };
 
   const rows = data.users?.map((user) => {
-    const { id, firstName, lastName, company, bloodGroup, email, phone } = user;
+    const { id, firstName, age, lastName, company, bloodGroup, email, phone } =
+      user;
     return {
       key: id.toString(),
       cells: [
         {
           key: firstName + lastName,
           content: `${firstName} ${lastName}`,
+        },
+        {
+          key: age,
+          content: age,
         },
         {
           key: company.name,

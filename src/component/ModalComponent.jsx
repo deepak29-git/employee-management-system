@@ -21,12 +21,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function ModalComponent({ open, setOpen, selectedUser }) {
-  // const userData = useSelector((state) => state.users.user);
+  const userData = useSelector((state) => state.users.user);
+
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const shortListHandler = () => {
-    dispatch(setUser(selectedUser));
+    const checkUser = userData.some((item) => item.id === selectedUser.id);
+    if (checkUser) {
+      alert("already exist");
+    } else {
+      dispatch(setUser(selectedUser));
+    }
   };
+
   return (
     <>
       <BootstrapDialog
@@ -53,6 +60,8 @@ export default function ModalComponent({ open, setOpen, selectedUser }) {
           <Button variant="contained" onClick={shortListHandler}>
             Shortlist
           </Button>
+          <div>name:{selectedUser.firstName}</div>
+          <div>Age:{selectedUser.age}</div>
         </DialogContent>
       </BootstrapDialog>
     </>
